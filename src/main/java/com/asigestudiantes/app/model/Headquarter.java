@@ -1,6 +1,12 @@
 package com.asigestudiantes.app.model;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -22,7 +28,11 @@ public class Headquarter {
 	@Column(name="HEADQUARTER_CITY")
 	private String headquarter_city;
 	
-	@Column(name="HEADQUARTER_ESTATE")
-	private String headquarter_estate;
+//	@Column(name="HEADQUARTER_ESTATE")
+//	private String headquarter_estate;
+	
+	@OneToMany(mappedBy = "headquarter")
+	@JsonIgnore
+	private List<HeadquarterCareer> headquarterscareers;
 	
 }

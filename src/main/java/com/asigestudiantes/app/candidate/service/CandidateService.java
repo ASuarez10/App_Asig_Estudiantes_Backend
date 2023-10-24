@@ -1,4 +1,4 @@
-package com.asigestudiantes.app.service;
+package com.asigestudiantes.app.candidate.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +24,9 @@ public interface CandidateService {
 	
 	public void deleteAllCandidates();
 	
+	public List<String> findDistinctCities();
+	
+	public List<String> findDistinctEstates();
+	
+	public List<String> findDistinctSexes();
 }

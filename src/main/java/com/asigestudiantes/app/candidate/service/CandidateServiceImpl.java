@@ -1,4 +1,4 @@
-package com.asigestudiantes.app.service;
+package com.asigestudiantes.app.candidate.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.asigestudiantes.app.model.Candidate;
-import com.asigestudiantes.app.repository.CandidateRepository;
+import com.asigestudiantes.app.candidate.repository.CandidateRepository;
 
 @Service
 public class CandidateServiceImpl implements CandidateService{
@@ -51,6 +51,21 @@ public class CandidateServiceImpl implements CandidateService{
 	@Override
 	public void deleteAllCandidates() {
 		candidateRepository.deleteAll();
+	}
+
+	@Override
+	public List<String> findDistinctCities() {
+		return candidateRepository.listDistinctCities();
+	}
+
+	@Override
+	public List<String> findDistinctEstates() {
+		return candidateRepository.listDistinctEstates();
+	}
+
+	@Override
+	public List<String> findDistinctSexes() {
+		return candidateRepository.listDistinctSexes();
 	}
 
 }

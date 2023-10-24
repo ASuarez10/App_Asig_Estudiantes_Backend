@@ -1,6 +1,12 @@
 package com.asigestudiantes.app.model;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -22,6 +28,10 @@ public class Career {
 	@Column(name="CAREER_NAME")
 	private String career_name;
 	
-	@Column(name="FACULTY_NAME")
-	private String faculty_name;
+//	@Column(name="FACULTY_NAME")
+//	private String faculty_name;
+	
+	@OneToMany(mappedBy = "career")
+	@JsonIgnore
+	private List<HeadquarterCareer> headquarterscareers;
 }

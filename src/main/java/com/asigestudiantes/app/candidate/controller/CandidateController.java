@@ -1,4 +1,4 @@
-package com.asigestudiantes.app.controller;
+package com.asigestudiantes.app.candidate.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asigestudiantes.app.model.Candidate;
-import com.asigestudiantes.app.service.CandidateService;
+import com.asigestudiantes.app.candidate.service.CandidateService;
 
 @RestController
 @RequestMapping("candidates")
@@ -29,8 +29,15 @@ public class CandidateController {
 	//Create multiple candidates
 	@PostMapping("/saveCandidates")
 	public ResponseEntity<?> createMultipleCandidates(@RequestBody List<Candidate> candidates){
-		candidateService.saveCandidates(candidates);
-		return ResponseEntity.ok("Successfully saved candidates");
+		try {
+			candidateService.saveCandidates(candidates);
+			return ResponseEntity.ok().build();
+		}catch(Exception e){
+			e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("An error ocurred while trying to save the candidates");
+		}
+		
 	}
 	
 	//Create a candidate
@@ -75,6 +82,27 @@ public class CandidateController {
 	public List<Candidate> readAllCandidates(){
 		List<Candidate> candidates = ((List<Candidate>)candidateService.findAll());
 		return candidates;
+	}
+	
+	//Get all cities from candidates
+	@GetMapping("/cities")
+	public List<String> readAllCandidatesCities(){
+		List<String> cities = candidateService.findDistinctCities();
+		return cities;
+	}
+	
+	//Get all cities from candidates
+	@GetMapping("/estates")
+	public List<String> readAllCandidatesEstates(){
+		List<String> estates = candidateService.findDistinctEstates();
+		return estates;
+	}
+	
+	//Get all cities from candidates
+	@GetMapping("/sexes")
+	public List<String> readAllCandidatesSexes(){
+		List<String> sexes = candidateService.findDistinctSexes();
+		return sexes;
 	}
 	
 }
