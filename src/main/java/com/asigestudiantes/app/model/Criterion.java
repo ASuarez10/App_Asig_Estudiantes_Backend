@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,7 +42,14 @@ public class Criterion {
 	@Column(name="VALUE")
 	private String value;
 	
+	@Column(name="SCHEDULED_VALUE")
+	private String scheduled_value;
+	
 	@Column(name="MANDATORY")
 	private String mandatory;
+	
+	@OneToMany(mappedBy = "criterion")
+	@JsonIgnore
+	private List<CriteriaConfiguration> confs;
 	
 }

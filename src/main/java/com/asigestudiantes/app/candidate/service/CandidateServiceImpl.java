@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.asigestudiantes.app.model.Candidate;
@@ -16,6 +17,9 @@ public class CandidateServiceImpl implements CandidateService{
 
 	@Autowired
 	private CandidateRepository candidateRepository;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public Iterable<Candidate> findAll() {
@@ -66,6 +70,11 @@ public class CandidateServiceImpl implements CandidateService{
 	@Override
 	public List<String> findDistinctSexes() {
 		return candidateRepository.listDistinctSexes();
+	}
+
+	@Override
+	public void executeSelectionProcess(int is_automated) {
+		jdbcTemplate.update("BEGIN SELECTION_PROCESS_PACKAGE.StoreSelectionProcessData("+is_automated+"); END;");
 	}
 
 }

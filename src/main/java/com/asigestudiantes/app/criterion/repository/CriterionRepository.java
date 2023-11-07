@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.asigestudiantes.app.model.Criterion;
-import com.asigestudiantes.app.model.Headquarter;
 
 @Repository
 public interface CriterionRepository extends JpaRepository<Criterion, String>{
@@ -13,5 +12,4 @@ public interface CriterionRepository extends JpaRepository<Criterion, String>{
 	@Query("SELECT c FROM Criterion c")
 	Iterable<Criterion> findAllCriteriaJPQL();
 	
-
 }

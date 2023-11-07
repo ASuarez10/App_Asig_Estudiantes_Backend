@@ -1,6 +1,7 @@
 package com.asigestudiantes.app.candidate.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asigestudiantes.app.model.Candidate;
+import com.asigestudiantes.app.candidate.component.ScheduledTask;
 import com.asigestudiantes.app.candidate.service.CandidateService;
 
 @RestController
@@ -25,6 +27,9 @@ public class CandidateController {
 
 	@Autowired
 	private CandidateService candidateService;
+	
+	@Autowired
+	private ScheduledTask scheduledTask;
 	
 	//Create multiple candidates
 	@PostMapping("/saveCandidates")
@@ -105,4 +110,18 @@ public class CandidateController {
 		return sexes;
 	}
 	
+	@PostMapping("/executeSelectionProcess")
+	public ResponseEntity<?> executeSelectionProcess() {
+		candidateService.executeSelectionProcess(0);
+		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping("/scheduleSelectionProcess")
+	public ResponseEntity<?> scheduleSelectionProcess(@RequestBody Map<String, String> request) {
+		
+		String executionTime = request.get("executionTime");
+		scheduledTask.setScheduleTime(executionTime);
+		
+		return ResponseEntity.ok("Execution scheduled successfuly");
+	}
 }

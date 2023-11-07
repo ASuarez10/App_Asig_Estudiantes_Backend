@@ -29,4 +29,6 @@ public interface CandidateService {
 	public List<String> findDistinctEstates();
 	
 	public List<String> findDistinctSexes();
+	
+	public void executeSelectionProcess(int is_automated);
 }

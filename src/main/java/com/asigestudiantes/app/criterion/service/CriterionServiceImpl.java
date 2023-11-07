@@ -1,5 +1,7 @@
 package com.asigestudiantes.app.criterion.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,16 @@ public class CriterionServiceImpl implements CriterionService{
 	@Override
 	public Iterable<Criterion> findAllCriteriaJPQL() {
 		return criterionRepository.findAllCriteriaJPQL();
+	}
+
+	@Override
+	public Criterion saveCriterion(Criterion criterion) {
+		return criterionRepository.save(criterion);
+	}
+
+	@Override
+	public void saveAllCriteria(List<Criterion> criteria) {
+		criterionRepository.saveAll(criteria);
 	}
 
 //	@Override
