@@ -1,5 +1,6 @@
 package com.asigestudiantes.app.candidate.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class CandidateController {
 	private CandidateService candidateService;
 	
 	@Autowired
-	private ScheduledTask scheduledTask;
+	private ScheduledTask scheduledTaskService;
 	
 	//Create multiple candidates
 	@PostMapping("/saveCandidates")
@@ -118,10 +119,14 @@ public class CandidateController {
 	
 	@PostMapping("/scheduleSelectionProcess")
 	public ResponseEntity<?> scheduleSelectionProcess(@RequestBody Map<String, String> request) {
-		
+		LocalDateTime now = LocalDateTime.now();
+		int hour = now.getHour();
+		int minute = now.getMinute();
+		System.out.println("Hora actual: "+hour+":"+minute);
+		System.out.println("Hora de ejecucion programada: "+request.get("executionTime"));
 		String executionTime = request.get("executionTime");
-		scheduledTask.setScheduleTime(executionTime);
+		scheduledTaskService.setScheduleTime(executionTime);
 		
-		return ResponseEntity.ok("Execution scheduled successfuly");
+		return ResponseEntity.ok().build();
 	}
 }

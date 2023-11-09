@@ -19,23 +19,19 @@ public class ScheduledTask extends TimerTask{
 	@Override
 	public void run() {
 		
-		LocalDateTime now = LocalDateTime.now();
+		System.out.println("Entra en run()");
 		
-		int hour = now.getHour();
-		int minute = now.getMinute();
-		
-		//TODO condicion para comparar si ya es la hora para ejecutar y si hay una hora programada
-		if(this.scheduleTime != null) {
-			if(this.scheduleTime == hour+":"+minute) {
-				this.candidateService.executeSelectionProcess(1);
-				this.scheduleTime = null;
-			}
-		}
-
+		this.candidateService.executeSelectionProcess(1);
+		System.out.println("Selection process executed succesfully");
+		this.scheduleTime = null;
 	}
 	
 	public void setScheduleTime(String time) {
 		this.scheduleTime = time;
 	}
 
+	public String getScheduleTime() {
+		return this.scheduleTime;
+	}
+	
 }

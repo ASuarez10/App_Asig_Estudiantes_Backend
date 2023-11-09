@@ -1,6 +1,9 @@
 package com.asigestudiantes.app.model;
 
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -10,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -59,5 +63,9 @@ public class Candidate {
 	@JoinColumn(name="ID_EDUCATION")
 	@JsonProperty(access = Access.READ_WRITE)
 	private Education_type education_type;
+	
+	@OneToMany(mappedBy = "candidate")
+	@JsonIgnore
+	private List<Selection> selection;
 	
 }
