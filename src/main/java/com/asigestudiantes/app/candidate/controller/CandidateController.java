@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asigestudiantes.app.model.Candidate;
+
+import io.swagger.v3.oas.annotations.Operation;
+
 import com.asigestudiantes.app.candidate.component.ScheduledTask;
 import com.asigestudiantes.app.candidate.service.CandidateService;
 
@@ -33,6 +36,7 @@ public class CandidateController {
 	private ScheduledTask scheduledTaskService;
 	
 	//Create multiple candidates
+	@Operation(summary = "Create multiple candidates from a list of candidates")
 	@PostMapping("/saveCandidates")
 	public ResponseEntity<?> createMultipleCandidates(@RequestBody List<Candidate> candidates){
 		try {
@@ -43,54 +47,10 @@ public class CandidateController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                             .body("An error ocurred while trying to save the candidates");
 		}
-		
-	}
-	
-	//Create a candidate
-	@PostMapping
-	public ResponseEntity<?> createCandidate(@RequestBody Candidate candidate){
-		return ResponseEntity.status(HttpStatus.CREATED).body(candidateService.save(candidate));
-	}
-	
-	//Find candidate by ID
-	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable(value="id") String candidateId){
-		Optional<Candidate> oCandidate = candidateService.findById(candidateId);
-		
-		if(oCandidate.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		Candidate candidate = oCandidate.get();
-		candidate.getHeadquartercareer();
-		return ResponseEntity.ok(candidate);
-	}
-	
-	//Delete a candidate by Id
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteCandidate(@PathVariable(value="id") String candidateId){
-		if(candidateService.findById(candidateId).isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		candidateService.deleteById(candidateId);
-		return ResponseEntity.ok().build();
-	}
-	
-	//Delete all the candidates
-	@DeleteMapping("/deleteCandidates")
-	public ResponseEntity<?> deleteAllCandidates(){
-		candidateService.deleteAllCandidates();
-		return ResponseEntity.ok().build();
-	}
-	
-	//Get all the candidates (No pageable)
-	@GetMapping
-	public List<Candidate> readAllCandidates(){
-		List<Candidate> candidates = ((List<Candidate>)candidateService.findAll());
-		return candidates;
 	}
 	
 	//Get all cities from candidates
+	@Operation(summary = "Get all cities from candidates")
 	@GetMapping("/cities")
 	public List<String> readAllCandidatesCities(){
 		List<String> cities = candidateService.findDistinctCities();
@@ -98,6 +58,7 @@ public class CandidateController {
 	}
 	
 	//Get all cities from candidates
+	@Operation(summary = "Get all cities from candidates")
 	@GetMapping("/estates")
 	public List<String> readAllCandidatesEstates(){
 		List<String> estates = candidateService.findDistinctEstates();
@@ -105,18 +66,23 @@ public class CandidateController {
 	}
 	
 	//Get all cities from candidates
+	@Operation(summary = "Get all cities from candidates")
 	@GetMapping("/sexes")
 	public List<String> readAllCandidatesSexes(){
 		List<String> sexes = candidateService.findDistinctSexes();
 		return sexes;
 	}
 	
+	//Endpoint to execute the selection process manually
+	@Operation(summary = "Executes the selection process manually")
 	@PostMapping("/executeSelectionProcess")
 	public ResponseEntity<?> executeSelectionProcess() {
 		candidateService.executeSelectionProcess(0);
 		return ResponseEntity.ok().build();
 	}
 	
+	//Endpoint to schedule the selection process
+	@Operation(summary = "Schedule the selection process")
 	@PostMapping("/scheduleSelectionProcess")
 	public ResponseEntity<?> scheduleSelectionProcess(@RequestBody Map<String, String> request) {
 		LocalDateTime now = LocalDateTime.now();

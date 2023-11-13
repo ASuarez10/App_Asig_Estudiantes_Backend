@@ -16,6 +16,8 @@ import com.asigestudiantes.app.criterion.service.CriterionService;
 import com.asigestudiantes.app.model.Criterion;
 import com.asigestudiantes.app.model.Headquarter;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("criteria")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -25,6 +27,7 @@ public class CriterionController {
 	private CriterionService criterionService;
 	
 	//Get all criteria
+	@Operation(summary = "Get all criteria records")
 	@GetMapping
 	public List<Criterion> getAllCriteriaJPQL(){
 		
@@ -34,17 +37,8 @@ public class CriterionController {
 		
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> saveCriterion(@RequestBody Criterion criterion){
-		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(criterionService.saveCriterion(criterion));
-		}catch(Exception e){
-			e.printStackTrace();
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("An error ocurred while trying to save the criterion");
-		}
-	}
-	
+	//Save all the criteria with a list as parameter
+	@Operation(summary = "Save all the criteria with a list as parameter")
 	@PostMapping("/saveAllCriteria")
 	public ResponseEntity<?> saveAllCriterion(@RequestBody List<Criterion> criteria){
 		try {
@@ -56,15 +50,5 @@ public class CriterionController {
 	                             .body("An error ocurred while trying to save the criterion");
 		}
 	}
-	
-	//Get all criteria
-//	@GetMapping
-//	public List<Headquarter> getAllHeadquarterJPQL(){
-//		
-//		List<Headquarter> headquarters = ((List<Headquarter>)criterionService.findAllHeadquarterJPQL());
-//		
-//		return headquarters;
-//		
-//	}
 
 }

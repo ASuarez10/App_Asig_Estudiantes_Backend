@@ -19,6 +19,8 @@ import com.asigestudiantes.app.model.SelectionProcess;
 import com.asigestudiantes.app.model.SelectionProcessExcel;
 import com.asigestudiantes.app.selectionProcess.service.SelectionProcessService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("selection-process")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,11 +29,15 @@ public class SelectionProcessController {
 	@Autowired
 	private SelectionProcessService spService;
 	
+	//Get a list of selection process (Pageable)
+	@Operation(summary = "Get a list of selection process (Pageable)")
 	@GetMapping
 	public Page<SelectionProcess> getSelectionProcesses(@RequestParam(name = "page",defaultValue = "0") int page, @RequestParam(name = "size",defaultValue = "10") int size){
 		return spService.getAllSelectionProcesses(page, size);
 	}
 	
+	//Get a excel file with the selection records of selection process with id == "process_id"
+	@Operation(summary = "Get a excel file with the selection records of selection process with id == {id}")
 	@GetMapping("/downloadProcess/{id}")
 	public ResponseEntity<byte[]> findById(@PathVariable(value="id") long process_id){
 		Optional<SelectionProcess> oSP = spService.getSelectionProcessById(process_id);

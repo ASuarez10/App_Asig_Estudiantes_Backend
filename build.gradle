@@ -24,6 +24,9 @@ repositories {
 }
 
 dependencies {
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.2.0'
+
 	// https://mvnrepository.com/artifact/org.apache.poi/poi
 	implementation group: 'org.apache.poi', name: 'poi', version: '5.2.4'
 	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml

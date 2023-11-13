@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asigestudiantes.app.criteriaConfiguration.service.CriteriaConfigurationService;
 import com.asigestudiantes.app.model.CriteriaConfiguration;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("criteria-conf")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,6 +26,8 @@ public class CriteriaConfigurationController {
 	@Autowired
 	private CriteriaConfigurationService confService;
 	
+	//Save all the criteria configuration with a List as parameter
+	@Operation(summary = "Save all the criteria configuration with a List as parameter")
 	@PostMapping("/saveConfs")
 	public ResponseEntity<?> saveAllConfs(@RequestBody List<CriteriaConfiguration> confs){
 		try {
@@ -36,6 +40,8 @@ public class CriteriaConfigurationController {
 		}
 	}
 	
+	//Delete all configuration records with column AUTOMATIZED == is_automatized
+	@Operation(summary = "Delete all configuration records with column AUTOMATIZED == is_automatized")
 	@DeleteMapping("/deleteByAutomatized/{is_automatized}")
 	public ResponseEntity<?> deleteConfsByAutomatized(@PathVariable(value="is_automatized") String isAutomatized){
 		confService.deleteByAutomatized(Integer.parseInt(isAutomatized));

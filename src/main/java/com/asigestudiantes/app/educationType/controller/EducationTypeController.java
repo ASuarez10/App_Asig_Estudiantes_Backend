@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asigestudiantes.app.educationType.service.EducationTypeService;
 import com.asigestudiantes.app.model.Education_type;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("educationTypes")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -19,13 +21,8 @@ public class EducationTypeController {
 	@Autowired
 	private EducationTypeService etService;
 	
-	@GetMapping
-	public List<Education_type> readAllEducationType(){
-		
-		List<Education_type> eTypes = ((List<Education_type>)etService.findAll());
-		return eTypes;
-	}
-	
+	//Get a list of education types
+	@Operation(summary = "Get a list of education types names")
 	@GetMapping("/names")
 	public List<String> readAllEducationTypeNames(){
 		

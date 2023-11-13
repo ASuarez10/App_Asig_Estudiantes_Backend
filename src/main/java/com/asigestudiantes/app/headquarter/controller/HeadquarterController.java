@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asigestudiantes.app.headquarter.service.HeadquarterService;
 import com.asigestudiantes.app.model.Headquarter;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("headquarters")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -20,6 +22,7 @@ public class HeadquarterController {
 	private HeadquarterService headquarterService;
 	
 	//Get all headquarters
+	@Operation(summary = "Get all headquarters")
 	@GetMapping
 	public List<Headquarter> readAllHeadquarters(){
 		List<Headquarter> headquarters = ((List<Headquarter>)headquarterService.findAll());
@@ -27,6 +30,7 @@ public class HeadquarterController {
 	}
 	
 	//Get all headquarters names
+	@Operation(summary = "Get all headquarters names")
 	@GetMapping("/names")
 	public List<String> readAllHeadquartersNames(){
 		List<String> headquartersNames = ((List<String>)headquarterService.findAllNames());
